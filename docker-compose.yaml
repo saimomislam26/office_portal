@@ -1,0 +1,72 @@
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb_server
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: nsl
+    networks:
+      - my-network
+  server:
+    build: ./server
+    container_name: server_c1
+    ports:
+      - '5001:5001'
+    volumes:
+      - ./server:/portal_server
+      - /portal_server/node_modules
+    env_file: ./server/.env
+    environment:
+      - NODE_ENV=dev
+      - SESSION_TIMEOUT=43200
+      - IMAGEUPLOADFOLDER=/home/nsl52/SHUVO/projects/nsl_system/code/Leave_Management_System/client/src/images
+      - FILESTORAGE=/home/nsl52/SHUVO/projects/nsl_system/code/Leave_Management_System/server/assets
+      - DOMAINNAME=localhost
+      - COOKIE_TTL=43200000
+      - DB_HOST=mongodb_server
+      - DB_USER=root
+      - DB_PASSWORD=example
+      - DB_NAME=nsl
+      - DB_PORT=27017
+      - ORIGIN=http://localhost:5000
+      - PORT=5001
+    depends_on:
+      - mongodb
+    networks:
+      - my-network
+  client:
+    build: ./client
+    container_name: client_c1
+    ports:
+      - '5000:5000'
+    volumes:
+      - ./client:/portal_client
+      - /portal_client/node_modules
+    env_file: ./client/.env
+    environment:
+      - REACT_APP_URL=http://localhost:5001/api/v1
+      - REACT_APP_IMGLOCATION=http://localhost:5001/images/
+      - REACT_APP_VIDEOLOCATION=http://localhost:5001/videos/
+    networks:
+      - my-network
+    stdin_open: true
+    tty: true
+  nginx:
+    image: nginx:latest
+    container_name: nginx_server
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - client
+      - server
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
