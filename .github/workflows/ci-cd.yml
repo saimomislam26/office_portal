@@ -34,19 +34,19 @@ jobs:
 
       - name: Build and push Docker images
         run: |
-          docker-compose -f docker-compose.yml build
-          docker-compose -f docker-compose.yml push
+          docker-compose -f docker-compose.yaml build
+          docker-compose -f docker-compose.yaml push
 
       - name: Run MongoDB container
         run: |
-          docker-compose -f docker-compose.yml up -d mongodb
+          docker-compose -f docker-compose.yaml up -d mongodb
           
       - name: Run server and client containers
         run: |
-          docker-compose -f docker-compose.yml up -d server client nginx
+          docker-compose -f docker-compose.yaml up -d server client nginx
 
       - name: Run tests
-        run: docker-compose -f docker-compose.yml exec server npm test
-
+        run: docker-compose -f docker-compose.yaml exec server npm test
+        
       - name: Teardown
-        run: docker-compose -f docker-compose.yml down
+        run: docker-compose -f docker-compose.yaml down
