@@ -49,7 +49,7 @@ module.exports.signinUser = async (req, res) => {
             .populate("role", "alias name")
             .populate("designation", "name")
             .populate("department", "name").lean();
-        console.log({user});
+        // console.log({user});
         if (!user) return res.status(400).json("wrong credential");
         let isValid = await verifyHash(password, user.password)
         if (!isValid) return res.status(400).json("wrong credential");
