@@ -44,10 +44,12 @@ module.exports.createUser = async (req, res) => {
 module.exports.signinUser = async (req, res) => {
     try {
         const { email, password } = req.body;
+        // console.log({email},{password});
         const user = await User.findOne({ email: email })
             .populate("role", "alias name")
             .populate("designation", "name")
             .populate("department", "name").lean();
+        console.log({user});
         if (!user) return res.status(400).json("wrong credential");
         let isValid = await verifyHash(password, user.password)
         if (!isValid) return res.status(400).json("wrong credential");
