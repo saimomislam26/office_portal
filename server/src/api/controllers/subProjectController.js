@@ -389,7 +389,7 @@ module.exports.searchProject = async (req, res) => {
             return res.status(400).json({ message: "Invalid User ID" });
         }
 
-        const subProjects = await SubProject.find({ $or: [{ projectMembers: userId },] }, 'projectId projectCode').populate('projectMembers', 'projectName');
+        const subProjects = await SubProject.find({ $or: [{ projectMembers: userId },] }, 'projectId projectCode isCurrentlyActive').populate('projectMembers', 'projectName');
 
         if (subProjects.length === 0) {
             return res.status(404).json({ message: "No subprojects found for this user" });
@@ -399,7 +399,8 @@ module.exports.searchProject = async (req, res) => {
         const projectsInfo = subProjects.map((subProject) => ({
             projectCode: subProject.projectId,
             subProjectCode: subProject.projectCode,
-            mergedProjectCode: `${subProject.projectId}-${subProject.projectCode}`
+            mergedProjectCode: `${subProject.projectId}-${subProject.projectCode}`,
+            currentlyActive: subProject.isCurrentlyActive
         }));
 
         return res.status(200).json({ message: "Success", data: projectsInfo });

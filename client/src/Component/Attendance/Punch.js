@@ -1288,8 +1288,16 @@ const Punch = ({ project }) => {
                                                 setSearchValue(newInputValue);
                                             }}
                                             onChange={(event, newValue) => {
-                                                if (newValue) {
-                                                    handleProjectSelection(newValue);
+                                                if (newValue && newValue.currentlyActive ===  true) {
+                                                    toast.warning("This Project is Locked, you can not add contribution", {
+                                                        position: toast.POSITION.TOP_CENTER,
+                                                        autoClose: 2000,
+                                                        pauseOnHover: false,
+                                                    })
+                                                }
+                                                else {
+                                                    // console.log('Selected Project:', newValue);
+                                                    newValue && handleProjectSelection(newValue);
                                                 }
                                             }}
                                             renderInput={(params) => (

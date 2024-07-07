@@ -1,15 +1,15 @@
 services:
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb_server
-    ports:
-      - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-      MONGO_INITDB_DATABASE: nsl
-    networks:
-      - my-network
+  # mongodb:
+  #   image: mongo:latest
+  #   container_name: mongodb_server
+  #   ports:
+  #     - "27017:27017"
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: example
+  #     MONGO_INITDB_DATABASE: nsl
+  #   networks:
+  #     - my-network
   server:
     build: ./server
     container_name: server_c1
@@ -26,15 +26,16 @@ services:
       - FILESTORAGE=/home/nsl52/SHUVO/projects/nsl_system/code/Leave_Management_System/server/assets
       - DOMAINNAME=localhost
       - COOKIE_TTL=43200000
-      - DB_HOST=mongodb_server
-      - DB_USER=root
-      - DB_PASSWORD=example
-      - DB_NAME=nsl
+      # - DB_HOST=mongodb_server
+      # - DB_USER=root
+      # - DB_PASSWORD=example
+      # - DB_NAME=nsl
       - DB_PORT=27017
+      - DB_URL=mongodb+srv://saimomislam26:F9Rps2bNY58eL2Q6@cluster0.11nepln.mongodb.net/nsl?retryWrites=true&w=majority&appName=Cluster0
       - ORIGIN=http://localhost:5000
       - PORT=5001
-    depends_on:
-      - mongodb
+    # depends_on:
+    #   - mongodb
     networks:
       - my-network
   client:
