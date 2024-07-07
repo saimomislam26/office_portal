@@ -19,7 +19,7 @@ module.exports = (app)=>{
     app.use(function (req, res, next) {
 
         // Website you wish to allow to connect
-
+        console.log(process.env.ORIGIN);
         res.setHeader('Access-Control-Allow-Origin', process.env.ORIGIN);
         // res.setHeader('Content-Security-Policy', 'script-src http://localhost:3000')
         // Request methods you wish to allow
