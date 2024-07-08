@@ -19,7 +19,7 @@ export const taskStatus = ['todo', 'in progress', 'pause', 'done'];
 export const priorityStat = ['high', 'medium', 'low']
 
 const AddTaskModal = ({ visible, onClose, status, projectCode, membersNameId, task, setTask, fetchSummary, projectDetails }) => {
-    const jwt = Cookies.get("_token")
+    const jwt = localStorage.getItem('_token')
     const customStyles = {
         // background: "rgb(58 58 58)",
         padding: "20px",

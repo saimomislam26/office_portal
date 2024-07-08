@@ -150,8 +150,8 @@ const Topnavbar = (props) => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  const token = Cookies.get('_info');
-  const jwtToken = Cookies.get("_token") 
+  const token = localStorage.getItem('_info');
+  const jwtToken = localStorage.getItem('_token') 
   // console.log(token);
 
   const [openModalP, setOpenModalP] = useState(false);
@@ -272,7 +272,7 @@ const Topnavbar = (props) => {
       <Divider />
       <List>
         {
-          !Cookies.get('_info') ?
+          !localStorage.getItem('_info') ?
             <ListItem disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
@@ -561,7 +561,7 @@ const Topnavbar = (props) => {
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           {
-            Cookies.get('_info') ?
+            localStorage.getItem('_info') ?
               <Box sx={{ flexGrow: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '10px' }}>
                 <Typography variant="p" component="div" sx={{ marginRight: "15px" }}>{decode?.firstName}</Typography>
                 <Tooltip title="Open settings">

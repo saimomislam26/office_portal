@@ -72,7 +72,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const ProjectDetail = () => {
-    const jwt = Cookies.get("_token");
+    const jwt = localStorage.getItem('_token');
 
     const [projectInfo, setProjectInfo] = useState({});
     const { id } = useParams();

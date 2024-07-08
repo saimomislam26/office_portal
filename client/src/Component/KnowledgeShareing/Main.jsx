@@ -93,7 +93,7 @@ const Main = () => {
 
 
   const [personName, setPersonName] = React.useState([]);
-  const jwt = Cookies.get("_token");
+  const jwt = localStorage.getItem('_token');
   const  [allBlog, setAllBlog] = useState([]);
   const [currentAllBlog, setCurrentAllBlog] = useState([]);
   const [orderBy, setOrderBy] = useState("");

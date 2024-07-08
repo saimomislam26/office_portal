@@ -133,7 +133,7 @@ BootstrapDialogTitle.propTypes = {
 };
 const AdminController = () => {
     const navigate = useNavigate()
-    const jwt = Cookies.get("_token");
+    const jwt = localStorage.getItem('_token');
     const userData = userInfo();
 
     const [title, setTitle] = useState('');

@@ -37,7 +37,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 const LeaveDataTable = (props) => {
-    const jwt = Cookies.get("_token")
+    const jwt = localStorage.getItem('_token')
     const user = userInfo()
     const role = userRole()
     const [open, setOpen] = useState(false);

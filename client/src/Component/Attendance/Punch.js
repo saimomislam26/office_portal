@@ -177,8 +177,8 @@ BootstrapDialogTitle.propTypes = {
 
 
 const Punch = ({ project }) => {
-    const jwt = Cookies.get('_token')
-    const jwtUser = Cookies.get('_info')
+    const jwt = localStorage.getItem('_token')
+    const jwtUser = localStorage.getItem('_info')
 
     const getUserIdFromJwt = (token) => {
         if (!token) return null;

@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom'
 import jwt_decode from "jwt-decode";
 import Cookies from 'js-cookie';
 const AdminCombinedProtected = ({ children }) => {
-    const token = Cookies.get('_info')
+    const token = localStorage.getItem('_info')
     var decoded 
     if(token){
         decoded = jwt_decode(token);

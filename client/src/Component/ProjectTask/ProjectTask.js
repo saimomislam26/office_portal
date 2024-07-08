@@ -109,7 +109,7 @@ function uniqueObj(data) {
 // const priorityStat = ['high', 'medium', 'low']
 export const taskTypes = ["feature", "bug", "test", "meeting", "research", "design", "others"]
 const ProjectTaskBoard = ({ membersNameId, projectDetails }) => {
-    const jwt = Cookies.get("_token");
+    const jwt = localStorage.getItem('_token');
     const user = userInfo();
     const role = userRole();
     // const role = 

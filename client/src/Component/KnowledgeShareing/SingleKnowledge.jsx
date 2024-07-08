@@ -18,7 +18,7 @@ function SingleKnowledge() {
   let { id } = useParams();
   const navigate = useNavigate();
   console.log(id);
-  const jwt = Cookies.get("_token");
+  const jwt = localStorage.getItem('_token');
   const userData = userInfo();
   const [knowledge, setKnowledge] = React.useState({});
   const [othersFile, setOthersFile] = React.useState([]);

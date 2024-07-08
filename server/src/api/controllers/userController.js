@@ -68,15 +68,20 @@ module.exports.signinUser = async (req, res) => {
         }
         // console.log("Token",token);
         const userSession = await createSession(user._id, userSessionData);
-        // const cookie = `_token=${token};samesite=none;Secure; expires:${new Date(Date.now() + TIME)};`
-        // const infoCookie = `_info=${jwt.sign(restUserInformation, "secret")};samesite=none;Secure; expires:${new Date(Date.now() + TIME)};`
-        // // console.log(process.env.DOMAINNAME);
-        // res.setHeader('set-cookie',[cookie, infoCookie]);
+        const cookie = `_token=${token};samesite=none;Secure; expires:${new Date(Date.now() + TIME)};`
+        const infoCookie = `_info=${jwt.sign(restUserInformation, "secret")};samesite=none;Secure; expires:${new Date(Date.now() + TIME)};`
+        // console.log(process.env.DOMAINNAME);
+        res.setHeader('set-cookie',[cookie, infoCookie]);
 
-        res.cookie("_token", token, { domain: process.env.DOMAINNAME, sameSite: 'None', secure: true, expires: new Date(Date.now() + TIME) });
-        res.cookie("_info", jwt.sign(restUserInformation, "secret"), { domain: process.env.DOMAINNAME, sameSite: 'None', secure: true, expires: new Date(Date.now() + TIME) });
+        // res.cookie("_token", token, { domain: process.env.DOMAINNAME, sameSite: 'None', secure: true, expires: new Date(Date.now() + TIME) });
+        // res.cookie("_info", jwt.sign(restUserInformation, "secret"), { domain: process.env.DOMAINNAME, sameSite: 'None', secure: true, expires: new Date(Date.now() + TIME) });
 
-        return res.status(200).json({ "userInformation": restUserInformation, "message": "successfully login" });
+        return res.status(200).json({ 
+            "userInformation": restUserInformation, 
+            "_token":token,
+            "_info":jwt.sign(restUserInformation, "secret"),
+            "message": "successfully login"
+         });
     } catch (err) {
         console.log(err);
         return res.status(500).json({ "message": "Something went wrong" })

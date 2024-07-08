@@ -80,7 +80,7 @@ function BootstrapDialogTitle(props) {
 
 
 const AllEmployees = () => {
-  const jwt = Cookies.get('_token')
+  const jwt = localStorage.getItem('_token')
 
   const [loading, setLoading] = useState(false)
   const [openModal, setOpenModal] = useState(false);

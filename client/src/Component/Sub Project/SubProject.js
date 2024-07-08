@@ -92,7 +92,7 @@ function BootstrapDialogTitle(props) {
 }
 
 const SubProject = () => {
-    const jwt = Cookies.get("_token");
+    const jwt = localStorage.getItem('_token');
     const [allProject, setAllProject] = useState([]);
     const [loading, setLoading] = useState(false);
     const [openModal, setOpenModal] = useState(false)

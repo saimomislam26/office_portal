@@ -70,7 +70,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 const SubProjectDetail = () => {
-    const jwt = Cookies.get("_token");
+    const jwt = localStorage.getItem('_token');
 
     const [projectInfo, setProjectInfo] = useState({});
     const { id, subId } = useParams();

@@ -97,7 +97,7 @@ BootstrapDialogTitle.propTypes = {
 
 const SingleProject = ({ project, deleteHandler }) => {
 
-  const jwt = Cookies.get("_token");
+  const jwt = localStorage.getItem('_token');
 
   const navigate = useNavigate();
   const [expanded, setExpanded] = React.useState(false);

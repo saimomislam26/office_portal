@@ -54,6 +54,8 @@ const Signin = () => {
         }
         else {
             dispatch(addUser(data))
+            localStorage.setItem('_token',data._token)
+            localStorage.setItem('_info',data._info)
             toast.success('Log in successfully', { position: toast.POSITION.TOP_CENTER, autoClose: 2000, pauseOnHover: false })
             navigate('/')
         }
