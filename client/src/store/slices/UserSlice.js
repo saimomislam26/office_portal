@@ -12,7 +12,7 @@ const userSlice = createSlice({
             state.name = action.payload.userInformation.firstName
             state.role = action.payload.userInformation.role.title
         }
-    }
+    } 
 })
 
 export {userSlice}
