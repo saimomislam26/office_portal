@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 
 const AuthenticateUser = ({children}) => {
     let cookies = Cookies.get('_info')
-
+    console.log({cookies});
     if(cookies){
         return children
     }
