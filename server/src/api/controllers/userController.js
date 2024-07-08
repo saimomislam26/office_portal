@@ -60,7 +60,7 @@ module.exports.signinUser = async (req, res) => {
 
         const { password: p, createdAt, createdBy, updatedAt, updatedBy, ...restUserInformation } = user;
         const token = tokenGeneration(userTokenData);
-        
+
         const userSessionData = {
             ipAddress: req.ip,
             jwt: token,
@@ -73,9 +73,9 @@ module.exports.signinUser = async (req, res) => {
         // // console.log(process.env.DOMAINNAME);
         // res.setHeader('set-cookie',[cookie, infoCookie]);
 
-        res.cookie("_token", token, {domain:process.env.DOMAINNAME,secure:true,SameSite:'None', expires: new Date(Date.now() + TIME)});
-        res.cookie("_info", jwt.sign(restUserInformation, "secret"), {domain:process.env.DOMAINNAME,secure:true,SameSite:'None',expires: new Date(Date.now() + TIME)});
-        
+        res.cookie("_token", token, { domain: process.env.DOMAINNAME, sameSite: 'None', secure: true, expires: new Date(Date.now() + TIME) });
+        res.cookie("_info", jwt.sign(restUserInformation, "secret"), { domain: process.env.DOMAINNAME, sameSite: 'None', secure: true, expires: new Date(Date.now() + TIME) });
+
         return res.status(200).json({ "userInformation": restUserInformation, "message": "successfully login" });
     } catch (err) {
         console.log(err);
@@ -324,7 +324,7 @@ module.exports.viewImage = async (req, res) => {
 };
 
 
-  
+
 module.exports.getUserUnderSuperVisorOrTemlead = async (req, res) => {
     try {
         const role = req.user.role.name;
@@ -532,7 +532,7 @@ module.exports.getUserUnderSuperVisorOrTemlead = async (req, res) => {
                         email: 1,
                         firstName: 1,
                         lastName: 1,
-                        empId:1
+                        empId: 1
                     }
                 }])
             return res.status(200).json({ "message": "success", data: [{ result: userUnder }] })
@@ -561,15 +561,15 @@ module.exports.passwordReset = async (req, res, next) => {
         if (!user) return res.status(400).json({ 'message': "User not found" });
         const email = user.email;
         if (!email) return res.status(400).json({ 'message': "User email not found" });
-        if(user._id.toString() !== req.user._id.toString()) return res.status(400).json({"message": "Invalid Request"})
+        if (user._id.toString() !== req.user._id.toString()) return res.status(400).json({ "message": "Invalid Request" })
         const newPassword = req.body.newPassword;
         const currentPassword = req.body.currentPassword;
 
         const isValidPass = await verifyHash(currentPassword, user?.password);
-        if(!isValidPass) return res.status(400).json({"message": "Invalid password"})
+        if (!isValidPass) return res.status(400).json({ "message": "Invalid password" })
         const newPasswordHash = await hashPasswordGenarator(newPassword);
-    console.log("hased", newPasswordHash);
-        await User.findOneAndUpdate({_id: user._id}, {$set: {password: newPasswordHash}});
+        console.log("hased", newPasswordHash);
+        await User.findOneAndUpdate({ _id: user._id }, { $set: { password: newPasswordHash } });
 
         return res.status(200).json({ 'message': "password updated successfully" })
     } catch (err) {
