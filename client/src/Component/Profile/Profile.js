@@ -132,7 +132,7 @@ const StyledTextarea = styled(TextareaAutosize)(
 );
 
 const Profile = () => {
-    const jwt = Cookies.get('_token')
+    const jwt = localStorage.getItem('_token')
     const styles = useStyles();
     const { id } = useParams();
     const [file, setFile] = useState();
@@ -298,6 +298,7 @@ const Profile = () => {
             }
         );
         const data = await res.json();
+        console.log({data});
         const tempInfo = data[0];
         if (res.status === 200) {
             setUserData(data[0]);
@@ -633,7 +634,7 @@ const Profile = () => {
 
                                                             {/* {userData?.firstName} {userData?.lastName} */}
                                                         </h3>
-                                                        {!cardEdit.main ? (<small>{userData?.designation?.name} {`(${roles.length && roles?.find(r => userData.role._id === r._id).alias})`}</small>)
+                                                        {!cardEdit.main ? (<small>{userData?.designation?.name} { }</small>)
                                                             : (
                                                                 <>
                                                                     <br />

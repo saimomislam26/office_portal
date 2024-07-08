@@ -199,7 +199,7 @@ const leaveStat = [
 const YEAR = new Date().getFullYear()
 
 const LeaveEmployee = () => {
-    const jwt = Cookies.get('_token');
+    const jwt = localStorage.getItem('_token');
 
     const [isLoading, setIsLoading] = useState(false);
     const [allHoliday, setAllHoliday] = useState([])

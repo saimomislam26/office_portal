@@ -131,7 +131,7 @@ const leaveStat = [
 ]
 
 const LeaveStatusLead = () => {
-     const jwt = Cookies.get('_token')
+     const jwt = localStorage.getItem('_token')
     const jwtUser = localStorage.getItem('_info')
     var decoded
     var decodedUser

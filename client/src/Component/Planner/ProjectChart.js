@@ -14,7 +14,7 @@ const ProjectChart = ({ onProjectSelect, onSubProjectSelect, selectedProjectProp
     const [data, setData] = useState([]);
     const [currentDate, setCurrentDate] = useState(new Date().toString())
 
-    const jwt = Cookies.get('_token')
+    const jwt = localStorage.getItem('_token')
     const jwtUser = localStorage.getItem('_info')
 
     const getUserIdFromJwt = (token) => {

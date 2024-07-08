@@ -105,7 +105,7 @@ const rows = [
 ];
 
 const Holidays = () => {
-    const jwt = Cookies.get('_token');
+    const jwt = localStorage.getItem('_token');
     const userInformaiton = userInfo()
 
     const [loading, setLoading] = useState(false)

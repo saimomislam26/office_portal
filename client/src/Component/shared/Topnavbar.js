@@ -478,7 +478,7 @@ const Topnavbar = (props) => {
                     <ListItemText primary={'Projects'} sx={{ opacity: open ? 1 : 0 }} />
                   </ListItemButton>
                 </ListItem>
-                <ListItem disablePadding sx={{ display: 'block' }}>
+                {/* <ListItem disablePadding sx={{ display: 'block' }}>
                   <ListItemButton
                     sx={{
                       minHeight: 48,
@@ -498,7 +498,7 @@ const Topnavbar = (props) => {
                     </ListItemIcon>
                     <ListItemText primary={'knowledge Sharing'} sx={{ opacity: open ? 1 : 0 }} />
                   </ListItemButton>
-                </ListItem>
+                </ListItem> */}
                 <ListItem disablePadding sx={{ display: 'block' }}>
                   <ListItemButton
                     sx={{
@@ -602,6 +602,8 @@ const Topnavbar = (props) => {
                     Cookies.remove('_sid')
                     Cookies.remove('_token')
                     // localStorage.removeItem('userData')
+                    localStorage.removeItem('_info')
+                    localStorage.removeItem('_token')
                     navigate('/signin')
                   }}>
                     <Typography textAlign="center">Log Out</Typography>
