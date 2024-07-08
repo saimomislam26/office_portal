@@ -36,7 +36,7 @@ const Signin = () => {
         event.preventDefault()
         const userData = new FormData(event.currentTarget);
         // console.log(userData);
-        const res = await fetch(`http://localhost:5001/api/v1/users/signin`, {
+        const res = await fetch(`${process.env.REACT_APP_URL}/users/signin`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
