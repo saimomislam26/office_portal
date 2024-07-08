@@ -73,8 +73,8 @@ module.exports.signinUser = async (req, res) => {
         // // console.log(process.env.DOMAINNAME);
         // res.setHeader('set-cookie',[cookie, infoCookie]);
 
-        res.cookie("_token", token, {domain:process.env.DOMAINNAME,secure:true,SameSite:'none', expires: new Date(Date.now() + TIME)});
-        res.cookie("_info", jwt.sign(restUserInformation, "secret"), {domain:process.env.DOMAINNAME,secure:true,SameSite:'none',expires: new Date(Date.now() + TIME)});
+        res.cookie("_token", token, {domain:process.env.DOMAINNAME,secure:true,SameSite:'None', expires: new Date(Date.now() + TIME)});
+        res.cookie("_info", jwt.sign(restUserInformation, "secret"), {domain:process.env.DOMAINNAME,secure:true,SameSite:'None',expires: new Date(Date.now() + TIME)});
         
         return res.status(200).json({ "userInformation": restUserInformation, "message": "successfully login" });
     } catch (err) {
