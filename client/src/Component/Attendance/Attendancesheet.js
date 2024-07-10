@@ -26,7 +26,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 
 
 import Cookies from 'js-cookie';
-import { TextField } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
 import dayjs from 'dayjs';
 
 
@@ -142,7 +142,7 @@ const Attendancesheet = () => {
         const monthHeader = ['Month', date.toLocaleString('default', {
             month: 'long'
         })]
-        const header = data.length<1?[]: ["User", ...data[0].attendance.map((day) => `Day ${day.day}/ ${getWeekdayName(new Date(`${year}/${month}/${day.day}`))}`)];
+        const header = data.length < 1 ? [] : ["User", ...data[0].attendance.map((day) => `Day ${day.day}/ ${getWeekdayName(new Date(`${year}/${month}/${day.day}`))}`)];
         const rows = data.map((user) => {
             const userRow = [user.user];
             user.attendance.forEach((day) => {
@@ -163,7 +163,7 @@ const Attendancesheet = () => {
     const getWeekdayName = (date) => {
         const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         return weekdays[date.getDay()];
-      };
+    };
 
     const handleDownload = () => {
         const data = generateExcelData(attendanceData);
@@ -227,7 +227,7 @@ const Attendancesheet = () => {
         <>
             {
                 loading ? <> <Loading /> </> :
-                    <Box sx={{ marginLeft: { sm: '60px', md: "280px", xs: "30px" }, marginRight: "30px" }}>
+                    <Box sx={{ marginLeft: { sm: '60px', md: "280px", xs: "30px" }, marginRight: "30px", maxWidth: '2618px' }}>
                         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                             <Typography sx={{ fontSize: '24px', fontWeight: 'bold' }}>Attendance</Typography>
                         </Box>
@@ -261,7 +261,7 @@ const Attendancesheet = () => {
                                 </LocalizationProvider>
                                 {/* <Typography></Typography> */}
 
-                                <Button variant="contained" sx={{ minWidth: 200, height: 55, margin: { md: "0", lg: "10px 20px 40px 20px" }, marginTop: { xs: "10px", md: "10px" } }} onClick={getAttendanceSheet}>Search</Button>
+                                <Button variant="contained" sx={{ minWidth: 365, height: 55, margin: { md: "0", lg: "10px 20px 40px 20px" }, marginTop: { xs: "10px", md: "10px" } }} onClick={getAttendanceSheet}>Search</Button>
 
                             </Box>
 
@@ -282,82 +282,85 @@ const Attendancesheet = () => {
 
                             </Box>
 
-                            <Box sx={{ marginTop: { xs: "40px" }, display: "flex", justifyContent: "end" }}>
-                                <Button variant="contained" startIcon={<FileDownloadIcon />} sx={{ width: 200, height: 55, }} onClick={handleDownload}>
-                                    Download Excel
-                                </Button>
-                            </Box>
 
-                            <TableContainer elevation={3} component={Paper} sx={{ marginTop: "30px", minWidth: '600px', width: "82vw", height: "100vh", overflowY: "scroll" }}>
-                                <Table sx={{ minWidth: 650, height: "auto", overflowY: "scroll" }} aria-label="simple table">
-                                    <TableHead sx={{ position: "sticky", top: 0, zIndex: 2 }}>
-                                        <TableRow>
-                                            <StyledTableCell sx={{ fontWeight: "bold" }}>Employee</StyledTableCell>
+                            <Grid container xs={12} sm={12} md={12}>
+                                <Box sx={{ marginTop: { xs: "40px" }, display: "flex", justifyContent: "end" }}>
+                                    <Button variant="contained" startIcon={<FileDownloadIcon />} sx={{ width: 200, height: 55, }} onClick={handleDownload}>
+                                        Download Attendance
+                                    </Button>
+                                </Box>
+                                <TableContainer elevation={3} component={Paper} sx={{ marginTop: "30px", width: "82vw", height: "100vh", overflowY: "scroll" }}>
+                                    <Table sx={{ minWidth: 650, height: "auto", overflowY: "scroll" }} aria-label="simple table">
+                                        <TableHead sx={{ position: "sticky", top: 0, zIndex: 2 }}>
+                                            <TableRow>
+                                                <StyledTableCell sx={{ fontWeight: "bold" }}>Employee</StyledTableCell>
+                                                {
+                                                    daysInMonth(month, year).map(val => {
+                                                        return (
+                                                            <StyledTableCell sx={{ fontWeight: "bold" }}>{val}</StyledTableCell>
+                                                        )
+
+                                                    })
+                                                }
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody >
                                             {
-                                                daysInMonth(month, year).map(val => {
-                                                    return (
-                                                        <StyledTableCell sx={{ fontWeight: "bold" }}>{val}</StyledTableCell>
-                                                    )
+                                                attendanceData && attendanceData.map((row, ind) => (
+                                                    <StyledTableRow
+                                                        key={row.user}
+                                                    >
+                                                        <StyledTableCell component="th" scope="row"
+                                                            sx={{ position: "sticky", left: 0, padding: "0 10px", zIndex: 1, background: "#fff" }}>
+                                                            {row.user}
+                                                        </StyledTableCell>
+                                                        {
+                                                            row?.attendance.map((val) => {
+                                                                return (
 
-                                                })
-                                            }
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody >
-                                        {
-                                            attendanceData && attendanceData.map((row, ind) => (
-                                                <StyledTableRow
-                                                    key={row.user}
-                                                >
-                                                    <StyledTableCell component="th" scope="row"
-                                                        sx={{ position: "sticky", left: 0, padding: "0 10px", zIndex: 1, background: "#fff" }}>
-                                                        {row.user}
-                                                    </StyledTableCell>
-                                                    {
-                                                        row?.attendance.map((val) => {
-                                                            return (
-
-                                                                <StyledTableCell  >{val.present === true ? (
-                                                                    <>
-                                                                        <CheckIcon style={{ color: 'green' }} />
-                                                                        {
-                                                                            val?.aId && val.aId.map(aStatus => {
-                                                                                var color = {}
-                                                                                switch (aStatus) {
-                                                                                    case 'HD':
-                                                                                        color['color'] = 'orange'
-                                                                                        break;
-                                                                                    case 'WAO':
-                                                                                        color['color'] = 'black'
-                                                                                        break;
-                                                                                    case 'WOH':
-                                                                                        color['color'] = 'blue'
-                                                                                        break;
-                                                                                    case 'WFH':
-                                                                                        color['color'] = '#ff1105b8'
-                                                                                        break;
-                                                                                    default:
-                                                                                        color['color'] = 'black'
-                                                                                }
-                                                                                return (
-                                                                                    <p style={color}>{aStatus}</p>
-                                                                                )
-                                                                            })
+                                                                    <StyledTableCell  >{val.present === true ? (
+                                                                        <>
+                                                                            <CheckIcon style={{ color: 'green' }} />
+                                                                            {
+                                                                                val?.aId && val.aId.map(aStatus => {
+                                                                                    var color = {}
+                                                                                    switch (aStatus) {
+                                                                                        case 'HD':
+                                                                                            color['color'] = 'orange'
+                                                                                            break;
+                                                                                        case 'WAO':
+                                                                                            color['color'] = 'black'
+                                                                                            break;
+                                                                                        case 'WOH':
+                                                                                            color['color'] = 'blue'
+                                                                                            break;
+                                                                                        case 'WFH':
+                                                                                            color['color'] = '#ff1105b8'
+                                                                                            break;
+                                                                                        default:
+                                                                                            color['color'] = 'black'
+                                                                                    }
+                                                                                    return (
+                                                                                        <p style={color}>{aStatus}</p>
+                                                                                    )
+                                                                                })
 
 
-                                                                        }
-                                                                        {val?.checkIn && isCheckLateTime(val?.modifiedCheckIn !== 'Unspecified' ? val?.modifiedCheckIn : val?.checkIn) ? <InfoIcon titleAccess={formatAMPM(new Date(val?.modifiedCheckIn !== 'Unspecified' ? val?.modifiedCheckIn : val?.checkIn))} /> : ""}
-                                                                    </>
+                                                                            }
+                                                                            {val?.checkIn && isCheckLateTime(val?.modifiedCheckIn !== 'Unspecified' ? val?.modifiedCheckIn : val?.checkIn) ? <InfoIcon titleAccess={formatAMPM(new Date(val?.modifiedCheckIn !== 'Unspecified' ? val?.modifiedCheckIn : val?.checkIn))} /> : ""}
+                                                                        </>
+                                                                    )
+                                                                        : <CloseIcon style={{ color: 'red' }} />}</StyledTableCell>
                                                                 )
-                                                                    : <CloseIcon style={{ color: 'red' }} />}</StyledTableCell>
-                                                            )
-                                                        })
-                                                    }
-                                                </StyledTableRow>
-                                            ))}
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
+                                                            })
+                                                        }
+                                                    </StyledTableRow>
+                                                ))}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                            </Grid>
+
                         </Box>
                     </Box>
             }

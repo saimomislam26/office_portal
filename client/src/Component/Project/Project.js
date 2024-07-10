@@ -311,7 +311,7 @@ const Project = () => {
   }, []);
 
   return (
-    <Box sx={{ marginLeft: { sm: '30px', md: "280px", xs: '30px' }, marginRight: "30px" }}>
+    <Box sx={{ marginLeft: { sm: '20px', md: "280px", xs: '20px' }, marginRight: "30px", maxWidth: '2618px' }}>
       {loading ? (
         <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", marginTop: "40px", maxWidth: "2618px" }}>
           <Grid container spacing={3}>
@@ -339,13 +339,13 @@ const Project = () => {
               Add Project
             </Button>}
           </Box>
-          <Grid container spacing={3}>
+          <Grid container spacing={1} >
             {
               allProject?.length > 0 ?
                 allProject.map((p) => {
                   // console.log(p);
                   return (
-                    <Grid item xs={12} sm={6} md={3} >
+                    <Grid item xs={12} sm={6} md={3}>
 
                       <SingleProject project={p} deleteHandler={deleteAProject} />
 

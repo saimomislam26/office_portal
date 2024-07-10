@@ -254,7 +254,7 @@ const Punch = ({ project }) => {
                 throw new Error('Failed to fetch project suggestions');
             }
             const responseData = await response.json();
-            console.log({responseData});
+            console.log({ responseData });
             // console.log('Fetched project suggestions:', responseData);
 
             // const suggestions = responseData.data.map(project => `${project.ProjectId}-${project.subProjectCode}`);
@@ -1064,14 +1064,14 @@ const Punch = ({ project }) => {
             {
                 loading ?
                     <Loading /> :
-                    <Box sx={{ marginLeft: { sm: '60px', md: "280px", xs: "30px" }, marginRight: "30px" }}>
+                    <Box sx={{ marginLeft: { sm: '60px', md: "280px", xs: "30px" }, marginRight: "30px" ,  maxWidth: '2618px'}}>
 
                         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                             <Typography sx={{ fontSize: '24px', fontWeight: 'bold' }}>Attendance</Typography>
                         </Box>
                         {/* Punch card Section */}
                         <Box className={classes.cardWrapper}>
-                            <Card elevation={4} sx={{ width: '60%' }}>
+                            <Card elevation={4}sx={{ width:{sm:'90%', md:'80%', xs:'100%'} }}>
                                 <CardContent>
                                     <Typography sx={{ fontWeight: 'bolder' }}>Time Sheet<span className={classes.timeColor}> {formatDateMonth()} </span></Typography>
                                     <Box className={classes.paperDesign}>
@@ -1092,7 +1092,7 @@ const Punch = ({ project }) => {
                                 </CardContent>
                             </Card>
                         </Box>
-                        <Box sx={{ width: "60%", margin: "10px auto" }}>
+                        <Box sx={{ width:{sm:'90%', md:'80%', xs:'100%'}, margin: "10px auto" }}>
                             <Card elevation='4' sx={{ maxHeight: 345, padding: "10px 0px 10px 0px" }}>
                                 <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', marginBottom: "15px" }}>
                                     <Typography sx={{ fontSize: '16px', fontWeight: 'bold' }}>Total Working Hours</Typography>
@@ -1101,7 +1101,7 @@ const Punch = ({ project }) => {
                             </Card>
                         </Box>
                         {/*Attendance machine API get search box */}
-                        <Button variant="contained" sx={{ height: '55px', maxHeight: 200, width: '30%' }} onClick={integrateMachineData}>Get Attendance</Button>
+                        {/* <Button variant="contained" sx={{ height: '55px', maxHeight: 200, width: '30%' }} onClick={integrateMachineData}>Get Attendance</Button> */}
 
                         {/* Searching Div */}
 
@@ -1151,117 +1151,119 @@ const Punch = ({ project }) => {
                         </Box>
                         {/* } */}
 
+                        <Grid container xs={12} sm={12} md={12}>
 
-                        <TableContainer elevation={3} component={Paper} sx={{ marginTop: "30px", marginBottom: "30px", minWidth: '600px', maxWidth: '2618px' }}>
-                            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                                <TableHead>
-                                    <TableRow>
-                                        <StyledTableCell sx={{ fontWeight: "bold" }}>Name</StyledTableCell>
-                                        <StyledTableCell sx={{ fontWeight: "bold" }}>Date</StyledTableCell>
-                                        <StyledTableCell sx={{ fontWeight: "bold" }}>Punch In</StyledTableCell>
-                                        <StyledTableCell sx={{ fontWeight: "bold" }}>Punch Out</StyledTableCell>
-                                        <StyledTableCell sx={{ fontWeight: "bold" }}>Total Hour</StyledTableCell>
-                                        <StyledTableCell sx={{ fontWeight: "bold" }}>Overtime</StyledTableCell>
-                                        {attendenceList[0]?.userId === userId ? <StyledTableCell sx={{ fontWeight: "bold" }}>Assigned Project</StyledTableCell> : null}
-                                        <StyledTableCell sx={{ fontWeight: "bold" }}>Actions</StyledTableCell>
+                            <TableContainer elevation={3} component={Paper} sx={{ marginTop: "30px", marginBottom: "30px", maxWidth: '2618px' }}>
+                                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                    <TableHead>
+                                        <TableRow>
+                                            <StyledTableCell sx={{ fontWeight: "bold" }}>Name</StyledTableCell>
+                                            <StyledTableCell sx={{ fontWeight: "bold" }}>Date</StyledTableCell>
+                                            <StyledTableCell sx={{ fontWeight: "bold" }}>Punch In</StyledTableCell>
+                                            <StyledTableCell sx={{ fontWeight: "bold" }}>Punch Out</StyledTableCell>
+                                            <StyledTableCell sx={{ fontWeight: "bold" }}>Total Hour</StyledTableCell>
+                                            <StyledTableCell sx={{ fontWeight: "bold" }}>Overtime</StyledTableCell>
+                                            {attendenceList[0]?.userId === userId ? <StyledTableCell sx={{ fontWeight: "bold" }}>Assigned Project</StyledTableCell> : null}
+                                            <StyledTableCell sx={{ fontWeight: "bold" }}>Actions</StyledTableCell>
 
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {
-                                        attendenceList.map((row, ind) => (
-                                            <StyledTableRow
-                                                key={ind}
-                                                style={{ backgroundColor: shouldDifferentColorRowWeekend(row?.key) ? "rgb(239, 250, 255, .7)" : shouldDifferentColorRowHoliday(row?.key) ? "rgb(255, 238, 238, .5)" : "" }}
-                                            >
-                                                <StyledTableCell component="th" scope="row">
-                                                    {row?.name}
-                                                </StyledTableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {
+                                            attendenceList.map((row, ind) => (
+                                                <StyledTableRow
+                                                    key={ind}
+                                                    style={{ backgroundColor: shouldDifferentColorRowWeekend(row?.key) ? "rgb(239, 250, 255, .7)" : shouldDifferentColorRowHoliday(row?.key) ? "rgb(255, 238, 238, .5)" : "" }}
+                                                >
+                                                    <StyledTableCell component="th" scope="row">
+                                                        {row?.name}
+                                                    </StyledTableCell>
 
-                                                <StyledTableCell component="th" scope="row">
-                                                    {row?.key}
-                                                </StyledTableCell>
+                                                    <StyledTableCell component="th" scope="row">
+                                                        {row?.key}
+                                                    </StyledTableCell>
 
-                                                <StyledTableCell component="th" scope="row" style={{}} >
-                                                    {row?.modifiedCheckInTime === row?.checkInTime ?
-                                                        <>
-                                                            {row?.checkInTime ? formatAMPM(new Date(row?.checkInTime)) : ""}
+                                                    <StyledTableCell component="th" scope="row" style={{}} >
+                                                        {row?.modifiedCheckInTime === row?.checkInTime ?
+                                                            <>
+                                                                {row?.checkInTime ? formatAMPM(new Date(row?.checkInTime)) : ""}
+
+                                                            </> : <>
+                                                                {row?.modifiedCheckInTime && <>  {formatAMPM(new Date(row?.modifiedCheckInTime))} <span style={{ color: "grey" }}>(Edited)</span> </>
+                                                                }
+                                                                {row?.checkInTime ? (<> <br /> {formatAMPM(new Date(row?.checkInTime))} </>) : ""}
+
+                                                            </>}
+                                                        {/* {row?.modifiedCheckInTime && (<Tooltip title="edited">
+                                            <PriorityHighIcon sx={{ color: "red" }} />
+                                        </Tooltip>)} */}
+
+                                                    </StyledTableCell>
+
+                                                    <StyledTableCell component="th" scope="row" style={{}}>
+                                                        {row?.modifiedCheckOutTime === row?.checkOutTime ? <>
+                                                            {row?.checkOutTime ? formatAMPM(new Date(row?.checkOutTime)) : ""}
 
                                                         </> : <>
-                                                            {row?.modifiedCheckInTime && <>  {formatAMPM(new Date(row?.modifiedCheckInTime))} <span style={{ color: "grey" }}>(Edited)</span> </>
-                                                            }
-                                                            {row?.checkInTime ? (<> <br /> {formatAMPM(new Date(row?.checkInTime))} </>) : ""}
+                                                            {row?.modifiedCheckOutTime && <>  {formatAMPM(new Date(row?.modifiedCheckOutTime))} <span style={{ color: "grey" }}>(Edited)</span> </>}
+                                                            {/* <br /> */}
+                                                            {row?.checkOutTime ? (<> <br />{formatAMPM(new Date(row?.checkOutTime))} </>) : ""}
 
                                                         </>}
-                                                    {/* {row?.modifiedCheckInTime && (<Tooltip title="edited">
+                                                        {/* {row?.modifiedCheckOutTime && (<Tooltip title="edited">
                                             <PriorityHighIcon sx={{ color: "red" }} />
                                         </Tooltip>)} */}
 
-                                                </StyledTableCell>
+                                                    </StyledTableCell>
+                                                    <StyledTableCell component="th" scope="row">
+                                                        {(row?.checkOutTime || row?.modifiedCheckOutTime) ? totalHour(new Date(row?.modifiedCheckInTime || row?.checkInTime).getTime(), new Date(row?.modifiedCheckOutTime || row?.checkOutTime).getTime()) : ""}
+                                                    </StyledTableCell>
+                                                    <StyledTableCell component="th" scope="row">
+                                                        {(row?.checkOutTime || row?.modifiedCheckOutTime) ? overTime(new Date(row?.modifiedCheckInTime || row?.checkInTime).getTime(), new Date(row?.modifiedCheckOutTime || row?.checkOutTime).getTime()) : ""}
+                                                    </StyledTableCell>
+                                                    {/* Assigned Project JSX */}
+                                                    <StyledTableCell component="th" scope="row">
+                                                        {
+                                                            row?.userId === userId ? (
+                                                                <IconButton onClick={() => {
+                                                                    handleModalOpen(ind, row?.key, row?.userId)
+                                                                    getContributionProjectData(row?.userId, row?.key)
+                                                                    if (row.modifiedCheckInTime || row.checkInTime) {
+                                                                        setClickedRTotalHour(totalHour(new Date(row?.modifiedCheckInTime || row?.checkInTime).getTime(), (row?.modifiedCheckOutTime || row?.checkOutTime) ? new Date(row?.modifiedCheckOutTime || row?.checkOutTime).getTime() : new Date()))
+                                                                    } else {
+                                                                        setClickedRTotalHour("Absent")
+                                                                    }
 
-                                                <StyledTableCell component="th" scope="row" style={{}}>
-                                                    {row?.modifiedCheckOutTime === row?.checkOutTime ? <>
-                                                        {row?.checkOutTime ? formatAMPM(new Date(row?.checkOutTime)) : ""}
-
-                                                    </> : <>
-                                                        {row?.modifiedCheckOutTime && <>  {formatAMPM(new Date(row?.modifiedCheckOutTime))} <span style={{ color: "grey" }}>(Edited)</span> </>}
-                                                        {/* <br /> */}
-                                                        {row?.checkOutTime ? (<> <br />{formatAMPM(new Date(row?.checkOutTime))} </>) : ""}
-
-                                                    </>}
-                                                    {/* {row?.modifiedCheckOutTime && (<Tooltip title="edited">
-                                            <PriorityHighIcon sx={{ color: "red" }} />
-                                        </Tooltip>)} */}
-
-                                                </StyledTableCell>
-                                                <StyledTableCell component="th" scope="row">
-                                                    {(row?.checkOutTime || row?.modifiedCheckOutTime) ? totalHour(new Date(row?.modifiedCheckInTime || row?.checkInTime).getTime(), new Date(row?.modifiedCheckOutTime || row?.checkOutTime).getTime()) : ""}
-                                                </StyledTableCell>
-                                                <StyledTableCell component="th" scope="row">
-                                                    {(row?.checkOutTime || row?.modifiedCheckOutTime) ? overTime(new Date(row?.modifiedCheckInTime || row?.checkInTime).getTime(), new Date(row?.modifiedCheckOutTime || row?.checkOutTime).getTime()) : ""}
-                                                </StyledTableCell>
-                                                {/* Assigned Project JSX */}
-                                                <StyledTableCell component="th" scope="row">
-                                                    {
-                                                        row?.userId === userId ? (
-                                                            <IconButton onClick={() => {
-                                                                handleModalOpen(ind, row?.key, row?.userId)
-                                                                getContributionProjectData(row?.userId, row?.key)
-                                                                if (row.modifiedCheckInTime || row.checkInTime) {
-                                                                    setClickedRTotalHour(totalHour(new Date(row?.modifiedCheckInTime || row?.checkInTime).getTime(), (row?.modifiedCheckOutTime || row?.checkOutTime) ? new Date(row?.modifiedCheckOutTime || row?.checkOutTime).getTime() : new Date()))
-                                                                } else {
-                                                                    setClickedRTotalHour("Absent")
                                                                 }
+                                                                }>
+                                                                    <AddIcon />
+                                                                </IconButton>
+                                                            ) : null
+                                                        }
 
-                                                            }
-                                                            }>
-                                                                <AddIcon />
-                                                            </IconButton>
-                                                        ) : null
-                                                    }
+                                                    </StyledTableCell>
 
-                                                </StyledTableCell>
-
-                                                <StyledTableCell component="th" scope="row">
-                                                    <Tooltip title="Edit">
-                                                        <EditIcon onClick={(e) => {
-                                                            handleUpateSingleAttendece(row)
-                                                        }} />
-                                                    </Tooltip>
-
-                                                    {row?.isModified && (
-                                                        <Tooltip title="edited">
-                                                            <PriorityHighIcon sx={{ color: "red" }} />
+                                                    <StyledTableCell component="th" scope="row">
+                                                        <Tooltip title="Edit">
+                                                            <EditIcon onClick={(e) => {
+                                                                handleUpateSingleAttendece(row)
+                                                            }} />
                                                         </Tooltip>
 
-                                                    )}
-                                                </StyledTableCell>
-                                            </StyledTableRow>
-                                        ))
-                                    }
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
+                                                        {row?.isModified && (
+                                                            <Tooltip title="edited">
+                                                                <PriorityHighIcon sx={{ color: "red" }} />
+                                                            </Tooltip>
+
+                                                        )}
+                                                    </StyledTableCell>
+                                                </StyledTableRow>
+                                            ))
+                                        }
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </Grid>
 
 
                         {/* Contribution Add Modal */}
@@ -1288,7 +1290,7 @@ const Punch = ({ project }) => {
                                                 setSearchValue(newInputValue);
                                             }}
                                             onChange={(event, newValue) => {
-                                                if (newValue && newValue.currentlyActive ===  true) {
+                                                if (newValue && newValue.currentlyActive === true) {
                                                     toast.warning("This Project is Locked, you can not add contribution", {
                                                         position: toast.POSITION.TOP_CENTER,
                                                         autoClose: 2000,

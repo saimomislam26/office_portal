@@ -77,8 +77,6 @@ function BootstrapDialogTitle(props) {
 }
 
 
-
-
 const AllEmployees = () => {
   const jwt = localStorage.getItem('_token')
 
@@ -345,7 +343,7 @@ const AllEmployees = () => {
   return (
 
     <>
-      <Box sx={{ marginLeft: { sm: '30px', md: "280px", xs: '30px' }, marginRight: "30px" }}>
+      <Box sx={{ marginLeft: { sm: '30px', md: "280px", xs: '30px' }, marginRight: "30px" , maxWidth: '2618px'}}>
 
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Typography sx={{ fontSize: '24px', fontWeight: 'bold' }}>Employee</Typography>

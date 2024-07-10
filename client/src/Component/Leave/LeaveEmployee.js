@@ -233,7 +233,7 @@ const LeaveEmployee = () => {
     const getAllHoilday = async () => {
         const respnse = await getAllHoildaysApi(jwt);
         if (respnse.status === 200) {
-            const allHolidayDate = [...respnse?.data?.map(v => getDatesBetween(v?.startDate,v?.endDate))]
+            const allHolidayDate = [...respnse?.data?.map(v => getDatesBetween(v?.startDate, v?.endDate))]
             setAllHolidayDate(allHolidayDate.flat());
             setAllHoliday(respnse.data)
         }
@@ -278,7 +278,7 @@ const LeaveEmployee = () => {
     const handleClickOpen = () => {
         setOpen(true);
     };
-    
+
     // For Modal Close
     const handleClickClose = () => {
         setOpen(false);
@@ -491,7 +491,7 @@ const LeaveEmployee = () => {
         <>
             {isLoading ? <Loading /> : (
 
-                <Box sx={{ marginLeft: { sm: '30px', md: "280px" } }}>
+                <Box sx={{ marginLeft: { sm: '20px', md: "280px", xs: '20px' }, marginRight: "30px", maxWidth: '2618px' }}>
                     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                         <Typography sx={{ fontSize: '24px', fontWeight: 'bold' }}>Leave</Typography>
                         <Button variant="contained" startIcon={<AddIcon />} sx={{ borderRadius: "50px" }} onClick={handleClickOpen}>
@@ -611,7 +611,10 @@ const LeaveEmployee = () => {
                         </Grid>
                     </Box>
 
-                    <LeaveDataTable data={state} dispatch={dispatch} getLeaveData={getLeaveData} />
+                    <Grid container xs={12} sm={12} md={12}>
+                        <LeaveDataTable data={state} dispatch={dispatch} getLeaveData={getLeaveData} />
+                    </Grid>
+
 
 
                     {/* Modal */}

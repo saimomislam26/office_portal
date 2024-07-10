@@ -546,7 +546,7 @@ const Topnavbar = (props) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed">
+      <AppBar position="fixed" sx={{ width:"100%"}}>
         <Toolbar>
           <IconButton
             color="inherit"

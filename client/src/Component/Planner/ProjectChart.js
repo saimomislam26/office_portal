@@ -233,7 +233,8 @@ const ProjectChart = ({ onProjectSelect, onSubProjectSelect, selectedProjectProp
             <Loading />
             :
             <>
-                <Box sx={{ marginLeft: { sm: '30px', md: "280px" }, width: "82vw", height: "100%" }}>
+           
+                <Box sx={{ width: {sm:"100%", xs:"100%", md:"75vw"}, height: "100%" }}>
                     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                         <Typography sx={{ fontSize: '24px', fontWeight: 'bold' }}>Planner</Typography>
 
@@ -268,9 +269,9 @@ const ProjectChart = ({ onProjectSelect, onSubProjectSelect, selectedProjectProp
                             <Grid item xs={12} sm={12} md={6} >
                                 {
                                     !pieChartSelect ? (
-                                        <div>
+                                        <Box >
                                             <h2>Employee Project Contribution</h2>
-                                            <TableContainer component={Paper} sx={{ maxHeight: '320px', overflowY: 'scroll' }}>
+                                            <TableContainer component={Paper} sx={{ maxHeight: '320px', overflowY: 'scroll', marginBottom:"10px" }}>
                                                 <Table>
                                                     <TableHead>
                                                         <TableRow style={{ backgroundColor: '#e3e3e3' }}>
@@ -315,7 +316,7 @@ const ProjectChart = ({ onProjectSelect, onSubProjectSelect, selectedProjectProp
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>
-                                        </div>
+                                        </Box>
                                     ) :
                                         (
                                             <>

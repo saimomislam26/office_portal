@@ -184,8 +184,8 @@ const LeaveDataTable = (props) => {
     )
     return (
         <>
-            <TableContainer elevation={3} component={Paper} sx={{ marginTop: "30px", minWidth: 435, maxWidth: '2618px' }}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableContainer elevation={3} component={Paper} sx={{ marginTop: "30px", maxWidth: '2618px' }}>
+                <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <StyledTableCell sx={{ fontWeight: "bold" }}>Leave type</StyledTableCell>

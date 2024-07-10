@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box } from '@mui/material';
 import ProjectChart from './ProjectChart';
 
 function DetailsTable() {
@@ -31,7 +31,7 @@ function DetailsTable() {
             });
 
             return (
-                <div style={{ marginTop: '100px' }}>
+                <Box sx={{ marginTop: "30px",marginBottom:"10px"}}>
                     <h2>Sub Project Details</h2>
                     <TableContainer component={Paper}  sx={{ maxHeight: '450px', overflowY: 'scroll' }}>
                         <Table>
@@ -58,7 +58,7 @@ function DetailsTable() {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                </div>
+                </Box>
             );
         }
         return null;
