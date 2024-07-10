@@ -44,7 +44,7 @@ import userRole from '../Hook/userHook';
 import { profileImg } from '../functions/commonFunc';
 import userInfo from '../Hook/useUseInfo';
 import { getSingleUser, passwordChangeApi } from '../../api/userApi';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputAdornment, InputLabel, Modal, OutlinedInput, Popover, TextField } from '@mui/material';
 import { toast } from 'react-toastify';
 
 // Modal Styling
@@ -60,6 +60,13 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     marginTop: '20px'
   },
 }));
+
+const style = {
+  p: 2,
+  bgcolor: 'background.paper',
+  boxShadow: 3,
+  borderRadius: 1,
+};
 
 
 function BootstrapDialogTitle(props) {
@@ -135,6 +142,13 @@ const Topnavbar = (props) => {
     confirmPassword: "",
     notes: ""
   })
+
+  const [anchorElManual, setAnchorElManual] = useState(null);
+
+  const handleOpen = (event) => setAnchorElManual(event.currentTarget);
+  const handleClose = () => setAnchorElManual(null);
+
+  const openManual = Boolean(anchorElManual);
 
   const [showPassword, setShowPassword] = useState({
 
@@ -273,27 +287,52 @@ const Topnavbar = (props) => {
       <List>
         {
           !localStorage.getItem('_info') ?
-            <ListItem disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-                onClick={() => { saveMenuData('signin') }}
-              >
-                <ListItemIcon
+            <>
+              <ListItem disablePadding sx={{ display: 'block' }}>
+                <ListItemButton
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
                   }}
+                  onClick={() => { saveMenuData('signin') }}
                 >
-                  <LoginIcon />
-                </ListItemIcon>
-                <ListItemText primary={'Sign In'} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem> :
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <LoginIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={'Sign In'} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding sx={{ display: 'block' }}>
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
+                  }}
+                  onClick={(e) => { handleOpen(e) }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <LoginIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={'User Access'} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </ListItem>
+            </>
+
+            :
             (
               <>
                 {/* Punch IN */}
@@ -761,6 +800,56 @@ const Topnavbar = (props) => {
           </Button>
         </DialogActions>
       </BootstrapDialog>
+
+      <Popover
+      open={openManual}
+      anchorEl={anchorElManual}
+      onClose={handleClose}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'right',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'left',
+      }}
+    >
+      <Box sx={style}>
+        <Typography id="notepad-title" variant="h6" component="h2">
+          Notepad
+        </Typography>
+        <Typography id="notepad-description" sx={{ mt: 2 }}>
+          There are 4 types of roles in this system. Admin, Project Lead, Team Lead, Employee. Dummy Account of each user is given below - <br/> <br/>
+
+          <b>Admin</b><br/>
+          Email: admin@portal.gmail.com
+          <br/>
+          password: Admin
+          <br/>
+
+          <b>Project Lead</b><br/>
+          Email: projectlead@portal.gmail.com
+          <br/>
+          password: ProjectLead
+          <br/>
+
+          <b>Team Lead</b><br/>
+          Email: teamlead@portal.gmail.com
+          <br/>
+          password: Teamlead
+          <br/>
+
+          <b>Employee</b><br/>
+          Email: useremployee@portal.gmail.com
+          <br/>
+          password: Useremployee
+
+        </Typography>
+        <Button onClick={handleClose} sx={{ mt: 2 }} variant="contained">
+          Close
+        </Button>
+      </Box>
+    </Popover>
     </Box>
   )
 }

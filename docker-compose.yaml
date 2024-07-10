@@ -12,6 +12,7 @@ services:
   #     - my-network
   server:
     build: ./server
+    # image: saimom/server:v1
     container_name: server_c1
     ports:
       - '5001:5001'
@@ -40,6 +41,7 @@ services:
       - my-network
   client:
     build: ./client
+    # image: saimom/client:v1
     container_name: client_c1
     ports:
       - '5000:5000'
