@@ -41,7 +41,7 @@ jobs:
       run: |
         npm install -g vercel
         cd client
-        vercel --prod --token $VERCEL_TOKEN
+         vercel --prod --token $VERCEL_TOKEN --scope $VERCEL_PROJECT_ID --cwd client
 
     - name: Deploy to Render.com
       run: |
