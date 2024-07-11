@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box } from '@mui/material';
 import ProjectChart from './ProjectChart';
 
@@ -18,7 +18,46 @@ function DetailsTable() {
         }
     };
 
-    const renderMonthWiseDetails = () => {
+    const renderTotalSubProjectContributionTime = () => {
+        if (selectedSubProject) {
+            const totalContribution = selectedSubProject.dateAndContribution.reduce((acc, entry) => {
+                const [hours, minutes] = entry.contribution.split(':').map(Number);
+                return acc + hours + minutes / 60;
+            }, 0);
+            return (
+                <div>
+                    <h5>({formatTime(totalContribution.toFixed(2))}) hours</h5>
+                </div>
+            );
+        }
+        return null;
+    };
+
+
+    const renderTotalContributionTime = () => {
+        if (selectedProject) {
+            const totalContribution = selectedProject.details.reduce((acc, detail) => acc + detail.totalContribution, 0);
+            return (
+                <div>
+                    <h5>({formatTime(totalContribution)}) </h5>
+                </div>
+            );
+        }
+        return null;
+    };
+
+    const handleSelection=()=>{
+        setSelectedProject(null);
+        setSelectedSubProject(null)
+    }
+
+    const formatTime = (hours) => {
+        const formattedHours = Math.floor(hours);
+        const minutes = Math.round((hours - formattedHours) * 60);
+        return `${formattedHours}h ${minutes}m`;
+    };
+
+    const renderMonthWiseDetails = useMemo(() => {
         if (selectedSubProject) {
             const monthWiseDetails = {};
             selectedSubProject.dateAndContribution.forEach(entry => {
@@ -62,49 +101,12 @@ function DetailsTable() {
             );
         }
         return null;
-    };
+    },[selectedSubProject])
 
-    const renderTotalContributionTime = () => {
-        if (selectedProject) {
-            const totalContribution = selectedProject.details.reduce((acc, detail) => acc + detail.totalContribution, 0);
-            return (
-                <div>
-                    <h5>({formatTime(totalContribution)}) </h5>
-                </div>
-            );
-        }
-        return null;
-    };
-
-
-    const handleSelection=()=>{
-        setSelectedProject(null);
-        setSelectedSubProject(null)
-    }
-    const renderTotalSubProjectContributionTime = () => {
-        if (selectedSubProject) {
-            const totalContribution = selectedSubProject.dateAndContribution.reduce((acc, entry) => {
-                const [hours, minutes] = entry.contribution.split(':').map(Number);
-                return acc + hours + minutes / 60;
-            }, 0);
-            return (
-                <div>
-                    <h5>({formatTime(totalContribution.toFixed(2))}) hours</h5>
-                </div>
-            );
-        }
-        return null;
-    };
-    const formatTime = (hours) => {
-        const formattedHours = Math.floor(hours);
-        const minutes = Math.round((hours - formattedHours) * 60);
-        return `${formattedHours}h ${minutes}m`;
-    };
 
     return (
         <>
             <ProjectChart onProjectSelect={handleProjectSelect} onSubProjectSelect={handleSubProjectSelect} selectedProjectProps={selectedProject} renderTotalContributionTime={renderTotalContributionTime} handleSubProjectSelect={handleSubProjectSelect} formatTime={formatTime} renderMonthWiseDetails={renderMonthWiseDetails} onSelection={handleSelection}/>
-          
         </>
 
     );

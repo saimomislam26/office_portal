@@ -291,7 +291,7 @@ const AllEmployees = () => {
       })
 
       const data = await res.json()
-      console.log(data);
+      // console.log(data);
       if (res.status === 200) {
         setFilterInfo({
           desgId: "", empName: "", userId: ""
@@ -606,7 +606,7 @@ const AllEmployees = () => {
                   // setUserInfo(e)
                   setUser({ ...user, joiningDate: e?.['$d'] ? e['$d'] : "" })
                   setSelectedDate(e)
-                  console.log("date Change", e?.['$d'] ? e['$d'] : "");
+                  // console.log("date Change", e?.['$d'] ? e['$d'] : "");
                 }} />
               </DemoContainer>
             </LocalizationProvider>

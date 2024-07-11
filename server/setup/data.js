@@ -15,7 +15,7 @@ var mm = Math.floor(msec / 1000 / 60);
 msec -= mm * 1000 * 60;
 var ss = Math.floor(msec / 1000);
 msec -= ss * 1000;
-console.log(hh + ":" + mm + ":" + ss);
+// console.log(hh + ":" + mm + ":" + ss);
 
 
 module.exports = {leaveCategory}

@@ -270,7 +270,7 @@ const SubProject = () => {
             // return
             const response = await deleteSubProjectApi(data, jwt);
             if (response.status === 200) {
-                console.log("delete", await response.json());
+                // console.log("delete", await response.json());
                 // navigate("/projects")
                 getProjects()
                 toast.success("Project deleted successfully", {

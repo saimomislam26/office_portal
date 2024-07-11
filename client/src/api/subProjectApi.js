@@ -8,7 +8,7 @@ export const getAllSubProject = async(data, token,id)=>{
 }
 
 export const createASubProjectApi = async(data, token,id)=>{
-    console.log("subproject data body",data);
+    // console.log("subproject data body",data);
     return await fetch(`${process.env.REACT_APP_URL}/subproject/create/${id}`,{method: "POST",  headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + token

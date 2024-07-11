@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -52,11 +52,9 @@ const ProjectChart = ({ onProjectSelect, onSubProjectSelect, selectedProjectProp
     const [isLoading, setLoading] = useState(true)
     const [showBackButton, setShowBackButton] = useState(false);
 
-    const fetchData = async (date) => {
+    const fetchData = useCallback(async (date) => {
         try {
             setLoading(true)
-
-            // console.log("Entered");
             const res = await fetch(`${process.env.REACT_APP_URL}/contribution/getplanner`, {
                 method: "POST",
                 headers: {
@@ -99,9 +97,10 @@ const ProjectChart = ({ onProjectSelect, onSubProjectSelect, selectedProjectProp
             console.error('Error fetching data:', error);
 
         }
-    };
+    },[jwt,userId])
 
     const formatResponse = (response) => {
+        // console.log("Enter format response");
         let arr = []
         response.reduce((acc, curr) => {
             const projectKey = `${curr.projectCode}`;
@@ -124,7 +123,7 @@ const ProjectChart = ({ onProjectSelect, onSubProjectSelect, selectedProjectProp
         }, {})
         return arr
     }
-    console.log(Object.keys(projectData).length);
+
     useEffect(() => {
         fetchData(currentDate);
     }, []);
@@ -233,11 +232,10 @@ const ProjectChart = ({ onProjectSelect, onSubProjectSelect, selectedProjectProp
             <Loading />
             :
             <>
-           
-                <Box sx={{ width: {sm:"100%", xs:"100%", md:"75vw"}, height: "100%" }}>
+
+                <Box sx={{ width: { sm: "100%", xs: "100%", md: "75vw" }, height: "100%" }}>
                     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                         <Typography sx={{ fontSize: '24px', fontWeight: 'bold' }}>Planner</Typography>
-
                     </Box>
                     <Box sx={{ display: "flex", flexWrap: "wrap", marginTop: "40px", maxWidth: '2168px' }}>
                         <Grid container spacing={5} >
@@ -271,7 +269,7 @@ const ProjectChart = ({ onProjectSelect, onSubProjectSelect, selectedProjectProp
                                     !pieChartSelect ? (
                                         <Box >
                                             <h2>Employee Project Contribution</h2>
-                                            <TableContainer component={Paper} sx={{ maxHeight: '320px', overflowY: 'scroll', marginBottom:"10px" }}>
+                                            <TableContainer component={Paper} sx={{ maxHeight: '320px', overflowY: 'scroll', marginBottom: "10px" }}>
                                                 <Table>
                                                     <TableHead>
                                                         <TableRow style={{ backgroundColor: '#e3e3e3' }}>
@@ -282,35 +280,35 @@ const ProjectChart = ({ onProjectSelect, onSubProjectSelect, selectedProjectProp
                                                     </TableHead>
                                                     <TableBody>
                                                         {
-                                                        Object.keys(projectData).length >0?
-                                                            Object.keys(projectData).map((projectKey, index) => {
-                                                                const contributionsPerMonth = {};
+                                                            Object.keys(projectData).length > 0 ?
+                                                                Object.keys(projectData).map((projectKey, index) => {
+                                                                    const contributionsPerMonth = {};
 
-                                                                projectData[projectKey].forEach(project => {
-                                                                    const { totalContribution, month } = project;
-                                                                    if (!selectedYearMonth || month === selectedYearMonth) {
-                                                                        if (!contributionsPerMonth[month]) {
-                                                                            contributionsPerMonth[month] = 0;
+                                                                    projectData[projectKey].forEach(project => {
+                                                                        const { totalContribution, month } = project;
+                                                                        if (!selectedYearMonth || month === selectedYearMonth) {
+                                                                            if (!contributionsPerMonth[month]) {
+                                                                                contributionsPerMonth[month] = 0;
+                                                                            }
+                                                                            contributionsPerMonth[month] += totalContribution;
                                                                         }
-                                                                        contributionsPerMonth[month] += totalContribution;
-                                                                    }
-                                                                });
+                                                                    });
 
-                                                                return Object.keys(contributionsPerMonth).map((month, idx) => (
-                                                                    <TableRow key={`${projectKey}-${idx}`} style={{ backgroundColor: index % 2 === 0 ? '#3498db' : 'white' }}>
-                                                                        {idx === 0 && (
-                                                                            <TableCell rowSpan={Object.keys(contributionsPerMonth).length}>
-                                                                                {projectKey}
-                                                                            </TableCell>
-                                                                        )}
-                                                                        <TableCell>{contributionsPerMonth[month].toFixed(2)}</TableCell>
-                                                                        <TableCell>{month}</TableCell>
-                                                                    </TableRow>
-                                                                ));
-                                                            }) :
-                                                            <TableRow>
-                                                            <TableCell colSpan={3} style={{ textAlign: 'center' }}>No data to preview</TableCell>
-                                                        </TableRow>
+                                                                    return Object.keys(contributionsPerMonth).map((month, idx) => (
+                                                                        <TableRow key={`${projectKey}-${idx}`} style={{ backgroundColor: index % 2 === 0 ? '#3498db' : 'white' }}>
+                                                                            {idx === 0 && (
+                                                                                <TableCell rowSpan={Object.keys(contributionsPerMonth).length}>
+                                                                                    {projectKey}
+                                                                                </TableCell>
+                                                                            )}
+                                                                            <TableCell>{contributionsPerMonth[month].toFixed(2)}</TableCell>
+                                                                            <TableCell>{month}</TableCell>
+                                                                        </TableRow>
+                                                                    ));
+                                                                }) :
+                                                                <TableRow>
+                                                                    <TableCell colSpan={3} style={{ textAlign: 'center' }}>No data to preview</TableCell>
+                                                                </TableRow>
                                                         }
 
                                                     </TableBody>
@@ -399,7 +397,8 @@ const ProjectChart = ({ onProjectSelect, onSubProjectSelect, selectedProjectProp
                                                                                         ));
                                                                                     })
                                                                                 ) : (
-                                                                                    console.log("Entered no data")
+                                                                                    ""
+                                                                                    // console.log("Entered no data")
                                                                                     // <TableRow>
                                                                                     //     <TableCell colSpan={3} style={{ textAlign: 'center', color: red }}>No data to preview</TableCell>
                                                                                     // </TableRow>
@@ -415,7 +414,7 @@ const ProjectChart = ({ onProjectSelect, onSubProjectSelect, selectedProjectProp
 
                                                 </Grid>
                                                 <Grid xs={12} sm={12} md={12}>
-                                                    {renderMonthWiseDetails()}
+                                                    {renderMonthWiseDetails}
                                                 </Grid>
                                             </>
                                         )

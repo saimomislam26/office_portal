@@ -125,7 +125,7 @@ const Main = () => {
       page: 1,
       limit: 10
       }
-      console.log(requestParam);
+      // console.log(requestParam);
       try{
         const request = await getAllKnowledge(requestParam, jwt);
         if(request.status === 200){

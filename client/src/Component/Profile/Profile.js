@@ -132,6 +132,7 @@ const StyledTextarea = styled(TextareaAutosize)(
 );
 
 const Profile = () => {
+    console.log("Profile");
     const jwt = localStorage.getItem('_token')
     const styles = useStyles();
     const { id } = useParams();
@@ -298,7 +299,7 @@ const Profile = () => {
             }
         );
         const data = await res.json();
-        console.log({data});
+        // console.log({data});
         const tempInfo = data[0];
         if (res.status === 200) {
             setUserData(data[0]);
@@ -338,11 +339,11 @@ const Profile = () => {
     const getImagePath = (imagePath) => {
         const pathArray = imagePath.split("/");
         const lastTwo = `${pathArray[pathArray.length - 2]}/${pathArray[pathArray.length - 1]}`
-        console.log("last two", lastTwo);
+        // console.log("last two", lastTwo);
         return lastTwo;
     }
     const updateUser = async (card) => {
-        console.log("Card Name", card);
+        // console.log("Card Name", card);
 
         var sentData;
         if (card === "intro") {

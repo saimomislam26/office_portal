@@ -263,13 +263,11 @@ const Topnavbar = (props) => {
     }
   }
   const loginUser = () => {
-
     getSingleUser(profileInfo?._id, jwtToken).then(d => {
       setProfileImagePath(d?.data[0]?.imagePath)
     }).catch(e => {
       console.log(e);
     })
-
   }
 
   useEffect(() => {
@@ -650,7 +648,6 @@ const Topnavbar = (props) => {
                 </Menu>
               </Box> : ""
           }
-
         </Toolbar>
       </AppBar>
 
@@ -769,7 +766,6 @@ const Topnavbar = (props) => {
                 (e) => {
                   setPasswordChange({ ...passwordChange, confirmPassword: e.target.value, notes: "" })
                 }
-
               }
               endAdornment={
                 <InputAdornment position="end">
@@ -802,54 +798,54 @@ const Topnavbar = (props) => {
       </BootstrapDialog>
 
       <Popover
-      open={openManual}
-      anchorEl={anchorElManual}
-      onClose={handleClose}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'right',
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'left',
-      }}
-    >
-      <Box sx={style}>
-        <Typography id="notepad-title" variant="h6" component="h2">
-          Notepad
-        </Typography>
-        <Typography id="notepad-description" sx={{ mt: 2 }}>
-          There are 4 types of roles in this system. Admin, Project Lead, Team Lead, Employee. Dummy Account of each user is given below - <br/> <br/>
+        open={openManual}
+        anchorEl={anchorElManual}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+      >
+        <Box sx={style}>
+          <Typography id="notepad-title" variant="h6" component="h2">
+            Notepad
+          </Typography>
+          <Typography id="notepad-description" sx={{ mt: 2 }}>
+            There are 4 types of roles in this system. Admin, Project Lead, Team Lead, Employee. Dummy Account of each user is given below - <br /> <br />
 
-          <b>Admin</b><br/>
-          Email: admin@portal.gmail.com
-          <br/>
-          password: Admin
-          <br/>
+            <b>Admin</b><br />
+            Email: admin@portal.gmail.com
+            <br />
+            password: Admin
+            <br />
 
-          <b>Project Lead</b><br/>
-          Email: projectlead@portal.gmail.com
-          <br/>
-          password: ProjectLead
-          <br/>
+            <b>Project Lead</b><br />
+            Email: projectlead@portal.gmail.com
+            <br />
+            password: ProjectLead
+            <br />
 
-          <b>Team Lead</b><br/>
-          Email: teamlead@portal.gmail.com
-          <br/>
-          password: Teamlead
-          <br/>
+            <b>Team Lead</b><br />
+            Email: teamlead@portal.gmail.com
+            <br />
+            password: Teamlead
+            <br />
 
-          <b>Employee</b><br/>
-          Email: useremployee@portal.gmail.com
-          <br/>
-          password: Useremployee
+            <b>Employee</b><br />
+            Email: useremployee@portal.gmail.com
+            <br />
+            password: Useremployee
 
-        </Typography>
-        <Button onClick={handleClose} sx={{ mt: 2 }} variant="contained">
-          Close
-        </Button>
-      </Box>
-    </Popover>
+          </Typography>
+          <Button onClick={handleClose} sx={{ mt: 2 }} variant="contained">
+            Close
+          </Button>
+        </Box>
+      </Popover>
     </Box>
   )
 }

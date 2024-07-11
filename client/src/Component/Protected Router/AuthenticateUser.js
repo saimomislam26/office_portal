@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 
 const AuthenticateUser = ({children}) => {
     let cookies = localStorage.getItem('_info')
-    console.log({cookies});
+    // console.log({cookies});
     if(cookies){
         return children
     }

@@ -296,7 +296,7 @@ const AdminController = () => {
             formData.append("files", files);
 
             const response = await fileUpload(jwt, formData);
-            console.log(response);
+            // console.log(response);
             if (response.status === 200) {
                 return response.data.result;
             }
@@ -325,7 +325,7 @@ const AdminController = () => {
         try {
             if (type === "video") {
                 const fileInfo = await fileUploads("", courseType, selectedFile);
-                console.log({ fileInfo });
+                // console.log({ fileInfo });
                 const requestBody = {
                     "author": usersIdName.map(v => ({ name: v.split("_")[0], oId: v.split("_")[1] })),
                     "title": title,

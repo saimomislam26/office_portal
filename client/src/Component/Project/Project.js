@@ -258,7 +258,7 @@ const Project = () => {
       // return
       const response = await deleteProjectApi(data, jwt);
       if (response.status === 200) {
-        console.log("delete", await response.json());
+        // console.log("delete", await response.json());
         getProjects()
         toast.success("Project deleted successfully", {
           position: toast.POSITION.TOP_CENTER,

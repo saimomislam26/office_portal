@@ -17,7 +17,7 @@ import { AxiosError } from 'axios';
 function SingleKnowledge() {
   let { id } = useParams();
   const navigate = useNavigate();
-  console.log(id);
+  // console.log(id);
   const jwt = localStorage.getItem('_token');
   const userData = userInfo();
   const [knowledge, setKnowledge] = React.useState({});
@@ -58,7 +58,7 @@ function SingleKnowledge() {
       const response = await getSingleKnowledge(id, jwt);
 
       if (response.status === 200) {
-        console.log("respose", response.data.result);
+        // console.log("respose", response.data.result);
         setKnowledge(response?.data?.result.knowledge)
         if (response?.data?.result?.allFiles.length) {
           setMainVideoFilePath(response?.data?.result?.allFiles.filter(v => v.priority === "primary")[0].link)

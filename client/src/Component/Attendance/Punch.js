@@ -254,7 +254,7 @@ const Punch = ({ project }) => {
                 throw new Error('Failed to fetch project suggestions');
             }
             const responseData = await response.json();
-            console.log({ responseData });
+            // console.log({ responseData });
             // console.log('Fetched project suggestions:', responseData);
 
             // const suggestions = responseData.data.map(project => `${project.ProjectId}-${project.subProjectCode}`);
@@ -361,7 +361,7 @@ const Punch = ({ project }) => {
             const updatedProjectWorkingHours = [...projectWorkingHours, { [project.subProjectCode]: project.contribution }];
             const mergedProjects = mergeObjectsWithDuplicateKeys(updatedProjectWorkingHours);
             mergedProjects.splice(index, 1)
-            console.log({ mergedProjects });
+            // console.log({ mergedProjects });
             setProjectWorkingHours(mergedProjects);
 
             const totalHours = calculateTotalWorkingHours(updatedProjects);
@@ -378,7 +378,7 @@ const Punch = ({ project }) => {
                     getContributionProjectData(userId, clickedDate)
                 }
             } catch (err) {
-                console.log({ err });
+                // console.log({ err });
                 if (err.response.status === 400) {
                     // handleModalClose()
                     toast.warning(err.response.data.message || err.response.data.error, { position: toast.POSITION.TOP_CENTER, autoClose: 2000, pauseOnHover: false })

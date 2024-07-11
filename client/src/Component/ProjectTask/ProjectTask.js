@@ -742,7 +742,7 @@ const ProjectTaskBoard = ({ membersNameId, projectDetails }) => {
                                                 label="Select Type"
                                                 value={query.status}
                                                 onChange={(e) => {
-                                                    console.log(e.target.value);
+                                                    // console.log(e.target.value);
                                                     setQuery({ ...query, status: e.target.value })
                                                 }}
                                             >
@@ -910,7 +910,7 @@ const ProjectTaskBoard = ({ membersNameId, projectDetails }) => {
                                 // description: {...detail}
                             };
 
-                            console.log("card", card);
+                            // console.log("card", card);
 
                             const updatedBoard = addCard(board, props, card)
                             setBoard(updatedBoard)

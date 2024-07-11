@@ -113,7 +113,7 @@ const SingleSubProject = ({ project, deleteHandler }) => {
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
-    console.log(event);
+    // console.log(event);
     setAnchorEl(event.currentTarget);
   };
   

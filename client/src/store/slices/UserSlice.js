@@ -8,7 +8,7 @@ const userSlice = createSlice({
     },
     reducers:{
         addUser(state,action){
-            console.log(action.payload);
+            // console.log(action.payload);
             state.name = action.payload.userInformation.firstName
             state.role = action.payload.userInformation.role.title
         }

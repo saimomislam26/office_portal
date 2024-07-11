@@ -92,7 +92,7 @@ const ProjectDetail = () => {
         projectCode: ""
     });
 
-    console.log({projectDetails});
+    // console.log({projectDetails});
 
     const [users, setUsers] = useState([]);
     const [teamLead, setTeamLead] = useState([])
